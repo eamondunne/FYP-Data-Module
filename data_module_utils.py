@@ -39,3 +39,6 @@ def post_result(api, result):
     Function to post results to the backend API
     '''
     requests.post(api, result)
+
+def remove_list_duplicates(duplicate_list):
+  return list(dict.fromkeys(duplicate_list))

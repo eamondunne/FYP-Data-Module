@@ -5,7 +5,7 @@ from textblob import TextBlob
 import re
 import json
 import time
-from utils import *
+from data_module_utils import *
 from statistics import mean
 import datetime as dt
 from calendar import timegm
@@ -13,6 +13,27 @@ from calendar import timegm
 data_url = 'https://api.pushshift.io/reddit/comment/search/'
 api_url = 'http://localhost:3000/api/bitcoin_reddit_comment_sentiments'
 
+def main():
+  num_comments = 1000
+  num_days = 365
+  total_start = time.time()
+  print("RUNNING:")
+  for i in range(0, num_days):
+      startTime = time.time()
+      comments = get_hourly_comments("bitcoin", num_comments, i)
+      api_call_time = time.time()
+      processed_comment = average_comment_sentiment(comments)
+      process_time = time.time()
+      post_result(api_url, processed_comment)
+      end_time = time.time()
+      print("---------")
+      print("Iteration: " + str(i))
+      print("API Call Time: " + str(api_call_time - startTime))
+      print("Process Time: " + str(process_time - api_call_time))
+      print("Total Time: " + str(end_time - startTime))
+  total_end = time.time()
+  print("Total Run (seconds): " + str(total_end - total_start))
+  print("Total Run (minutes): " + str((total_end - total_start)/60))
 
 def get_hourly_comments(subreddit, size, day):
     '''
@@ -97,23 +118,6 @@ def average_comment_sentiment(comments):
     }
     return processed_comment
 
-num_comments = 1000
-num_days = 365
-total_start = time.time()
-for i in range(0, num_days):
-    startTime = time.time()
-    comments = get_hourly_comments("bitcoin", num_comments, i)
-    api_call_time = time.time()
-    processed_comment = average_comment_sentiment(comments)
-    process_time = time.time()
-    post_result(api_url, processed_comment)
-    end_time = time.time()
-    print("---------")
-    print("Iteration: " + str(i))
-    print("API Call Time: " + str(api_call_time - startTime))
-    print("Process Time: " + str(process_time - api_call_time))
-    print("Total Time: " + str(end_time - startTime))
-total_end = time.time()
-print("Total Run (seconds): " + str(total_end - total_start))
-print("Total Run (minutes): " + str((total_end - total_start)/60))
-
+if __name__ == "__main__":
+    # calling main function
+    main()

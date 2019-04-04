@@ -15,7 +15,7 @@ api_url = 'http://localhost:3000/api/bitcoin_reddit_comment_sentiments'
 
 def main():
   num_comments = 1000
-  num_days = 365
+  num_days = 5
   total_start = time.time()
   print("RUNNING:")
   for i in range(0, num_days):
@@ -96,7 +96,6 @@ def average_comment_sentiment(comments):
     '''
     polarity_list = []
     subjectivity_list = []
-    # Calculates the Polarity & Subjectivity of each comment then calculates the average
     for comment in comments:
         text = comment['body']
         comment_polarity = get_sentiment(text).sentiment.polarity

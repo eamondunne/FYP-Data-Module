@@ -46,9 +46,11 @@ def get_tweets_daily(searchTerm, day, limit):
   return twint.output.tweets_object
 
 def process_tweets(tweets):
+    '''
+    Calculates the average sentiment of a given batch of tweets
+    '''
     polarity_list = []
     subjectivity_list = []
-    # Calculates the Polarity & Subjectivity of each comment then calculates the average
     for tweet in tweets:
         text = tweet.tweet
         comment_polarity = get_sentiment(text).sentiment.polarity

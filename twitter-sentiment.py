@@ -7,8 +7,8 @@ import json
 
 api_url = 'http://localhost:3000/api/bitcoin_twitter_sentiments'
 
-num_days = 2
-limit = 100
+num_days = 1
+limit = 1000
 
 def main():
   print("Starting:")

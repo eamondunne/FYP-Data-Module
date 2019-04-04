@@ -15,7 +15,7 @@ api_url = 'http://localhost:3000/api/bitcoin_reddit_comment_sentiments'
 
 def main():
   num_comments = 1000
-  num_days = 5
+  num_days = 6
   total_start = time.time()
   print("RUNNING:")
   for i in range(0, num_days):

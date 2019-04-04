@@ -10,16 +10,14 @@ import datetime as dt
 medium_feed = 'https://medium.com/tag/bitcoin/archive/'
 api_url = 'http://localhost:3000/api/bitcoin_medium_sentiments'
 
-num_days = 191
-
-# TODO: put an article limit in...
+num_days = 2
 
 
 def main():
     print("Starting:")
     data = []
     total_run_start = time.time()
-    for i in range(190, num_days):
+    for i in range(0, num_days):
         start_time = time.time()
         links = strip_links(medium_feed, i)
         links = remove_list_duplicates(links)
